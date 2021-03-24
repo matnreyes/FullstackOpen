@@ -1,0 +1,36 @@
+title new_note
+
+note over browser:
+user submits newly typed form
+end note 
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+
+note over server:
+server runs js code to add new note onto the notes json file
+end note 
+
+server->browser: redirects back to newnote page (302 Found)
+
+note over browser:
+browser reloads website submitting original HTTP requests
+with updated json notes file
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server->browser: main.js
+
+note over browser:
+browser starts running js code which request json file of notes
+end note 
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server->browser: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+
+note over browser:
+browser runs js code to display new note data
+end note 

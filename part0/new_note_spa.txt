@@ -1,0 +1,18 @@
+title new_note_spa
+
+note over browser:
+user submits new note
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over server:
+server reacts with event-listener and determines that data
+is being sent as a POST request
+end note
+
+server->browser: data as JSON string (201 Created)
+
+note over browser:
+JS changed DOM to include new JSON string received from server
+end note 
