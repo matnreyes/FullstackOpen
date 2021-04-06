@@ -11,23 +11,23 @@ const Buttons = ({text, rating}) => {
 }
 
 // a proper place to define a component
-const Statistics = ({statistic, value}) => {
-  const Statistic = ({text, value}) => {
-    if (text === 'positive') {
-      return (
-        <tr>
-          <th>{text}</th>
-          <td>{value}%</td>
-        </tr>
-      )
-    }
+const Statistic = ({text, value}) => {
+  if (text === 'positive') {
     return (
       <tr>
         <th>{text}</th>
-        <td>{value}</td>
+        <td>{value}%</td>
       </tr>
     )
   }
+  return (
+    <tr>
+      <th>{text}</th>
+      <td>{value}</td>
+    </tr>
+  )
+}
+const Statistics = ({statistic, value}) => {
   return (
     <div>
       <table>
