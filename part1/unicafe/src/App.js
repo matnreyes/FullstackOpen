@@ -27,6 +27,7 @@ const Statistic = ({text, value}) => {
     </tr>
   )
 }
+
 const Statistics = ({statistic, value}) => {
   return (
     <div>
