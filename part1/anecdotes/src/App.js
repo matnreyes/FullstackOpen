@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Display = ({anecdote, votes}) => (
+const Anecdote = ({anecdote, votes}) => (
   <div>
     {anecdote}
     <br/>
@@ -39,11 +39,27 @@ const App = () => {
     updateVotes(copy)
   }
 
+  // Find most popular
+  const findPopular = (votes) => {
+    const largest = Math.max.apply(Math, votes)
+    for (var index = 0; votes[index] !== largest; index++) {
+    }
+    return index
+  }
+
+  const mostPopular = {
+    anecdote: anecdotes[findPopular(votes)],
+    votes: votes[findPopular(votes)]
+  }
+
   return (
     <div>
-      <Display anecdote={anecdotes[selected]} votes={votes[selected]}/>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdote={anecdotes[selected]} votes={votes[selected]}/>
       <Button handleClick={handleVotes} text='vote'/>
       <Button handleClick={selectRandom} text='next anecdote'/>
+      <h1>Anecdote with the most votes</h1>
+      <Anecdote anecdote={mostPopular.anecdote} votes={mostPopular.votes}/>
     </div>
   )
 }
