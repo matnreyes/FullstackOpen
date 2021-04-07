@@ -15,6 +15,9 @@ const App = () => {
       id: persons.length + 1
     }
 
+    const match = persons.find((person) => person.name === nameObject.name)
+    match ? window.alert(`${nameObject.name} is already in the phonebook`) : 
+
     setPersons(persons.concat(nameObject))
     setNewName('')
   }
@@ -36,7 +39,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul> 
-        {persons.map((person) => <li key={person}> {person.name} </li>)}
+        {persons.map((person) => <li key={person.id}> {person.name} </li>)}
       </ul>
     </div>
   )
