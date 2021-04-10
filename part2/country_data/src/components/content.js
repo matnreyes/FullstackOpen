@@ -24,38 +24,6 @@ const Content = ({countries}) => {
                 </div>
             )
     }
-
-
-
-
-
-    // if (countries.legnth > 10 ) {
-    //     return (
-    //         <div>
-    //         Too many matches, refine search
-    //         </div>
-    //     )
-    // }
-    // else if (countries.length === 0) {
-    //     return (
-    //         <div> </div>
-    //     )
-    // }
-    // else if (countries.length === 1) {
-    //     console.log(countries);
-    //     return (
-    //         <Country country={countries}/>
-    //     )
-    // }
-    // else {
-    //     return (
-    //         <div>
-    //             {countries.map(country => (
-    //                 <div key={country.name}> {country.name} </div>
-    //             ))}
-    //         </div>
-    //     )
-    // }
 }
 
 
