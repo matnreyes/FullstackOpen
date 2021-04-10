@@ -24,13 +24,8 @@ const App = () => {
     event.preventDefault()
     const search = event.target.value
     setQuery(search)
-    if (search === '') {
-      setQueryResult([{name: ''}])
-    }
-    else {
-      const result = countryData.filter(country => country.name.toUpperCase().includes(search.toUpperCase()))
-      result.length < 10 ? setQueryResult(result) : setQueryResult([{name: 'Too many matches, refine search'}])
-    }
+    const result = countryData.filter(country => country.name.toUpperCase().includes(search.toUpperCase()))
+    setQueryResult(result)
   }
 
   return (
