@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import Filter from './components/filter'
 import PersonForm from './components/personform'
 import Persons from './components/persons'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas',
-      number: '(555)701-9832'
-    }
-  ]) 
-  const [ searchResult, setSearchResult ] = useState(persons)
+  const [ persons, setPersons ] = useState([]) 
+  const [ searchResult, setSearchResult ] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
-
+  
+  // Load person data from server
+  const personHook = () => {
+    axios
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      setPersons(response.data)
+      setSearchResult(response.data)
+    })
+  }
+  useEffect(personHook, [])
+  
   const addName = (event) => {
     event.preventDefault()
     const nameObject = {
