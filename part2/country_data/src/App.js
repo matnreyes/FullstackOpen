@@ -31,7 +31,7 @@ const App = () => {
   return (
     <div>
       <Search value={query} handler={handleQuery}/>
-      <Content countries={queryResult}/>
+      <Content countries={queryResult} buttonAction={handleQuery}/>
     </div>
   )
 }

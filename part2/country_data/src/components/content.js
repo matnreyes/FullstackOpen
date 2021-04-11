@@ -1,7 +1,7 @@
 import React from 'react'
 import Country from './country'
 
-const Content = ({countries}) => {
+const Content = ({countries, buttonAction }) => {
     switch (true) {
         case countries.length === 250:
             return (
@@ -19,7 +19,7 @@ const Content = ({countries}) => {
             return (
                 <div>
                     {countries.map(country => (
-                        <div key={country.name}> {country.name} </div>
+                        <div key={country.name}> {country.name} <button onClick={buttonAction} value={country.name}>show</button></div>
                     ))}
                 </div>
             )
