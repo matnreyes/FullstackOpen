@@ -1,7 +1,7 @@
 import React from 'react'
 import Country from './country'
 
-const Content = ({countries, buttonAction }) => {
+const Content = ({countries, buttonAction, weather }) => {
     switch (true) {
         case countries.length === 250:
             return (
@@ -13,7 +13,7 @@ const Content = ({countries, buttonAction }) => {
             )
         case countries.length === 1:
             return (
-                <Country country={countries[0]}/>
+                <Country country={countries[0]} weather={weather}/>
             )
         default:
             return (
