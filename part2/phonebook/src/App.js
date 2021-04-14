@@ -55,18 +55,23 @@ const App = () => {
   
   // Deletes contacts
   const handleDelete = (event) => {
-    contactService.deleteContact(event.target.value).then(updatedContacts => {
-      setPersons(updatedContacts)
+    const contact = persons.find(person => person.id === parseInt(event.target.value))
+    const userChoice = window.confirm(`Are you sure you want to delete ${contact.name}?`)
+    if (!userChoice) {
+      return
+    }
+
+    contactService.deleteContact(contact.id).then(updatedContacts => {
       setSearchResult(updatedContacts)
+      setPersons(updatedContacts)
     })
     .catch(error => {
-     alert(
-      'Contact has already been deleted'
-     )
-    setPersons(persons.filter(person => person.id !== event.target.value))
-    setSearchResult(persons.filter(person => person.id !== event.target.value))
+      alert(
+        '${contact.name} has already been deleted'
+      )
+      setSearchResult(persons.filter(person => person.id !== contact.id))
+      setPersons(persons.filter(person => person.id !== contact.id))
     })
-      
   }
 
   const searchNames = (event) => {
