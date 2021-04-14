@@ -1,8 +1,8 @@
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import Filter from './components/filter'
 import PersonForm from './components/personform'
 import Persons from './components/persons'
+import contactService from './services/contacts'
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -11,16 +11,15 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
   
-  // Load person data from server
-  const personHook = () => {
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
-      setSearchResult(response.data)
-    })
-  }
-  useEffect(personHook, [])
+  // Load person data from server 
+  useEffect( () => {
+    contactService
+      .getContacts()
+      .then(contacts => {
+        setPersons(contacts)
+        setSearchResult(contacts)
+      })
+  }, [])
   
   const addName = (event) => {
     event.preventDefault()
@@ -28,15 +27,14 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    axios
-      .post('http://localhost:3001/persons', nameObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
-        setSearchResult(persons.concat(response.data))
-        setNewNumber('')
-        setNewName('')
-
+    contactService
+      .addContacts(nameObject)
+      .then(newContact => {
+        setPersons(persons.concat(newContact))
+        setSearchResult(persons.concat(newContact))
       })
+    setNewName('')
+    setNewNumber('')
   }
 
   const handleNameInput = (event) => {
