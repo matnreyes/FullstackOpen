@@ -31,7 +31,18 @@ const App = () => {
 
     const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
     if (match) {
-      alert (`${newName} is already in phonebook`)
+      const update = window.confirm(`${match.name} already in phonebook. Would you like to update their number?`)
+      if (update) {
+        nameObject.id = match.id
+        contactService
+          .updateContact(nameObject)
+          .then(updatedContacts => {
+            setPersons(updatedContacts)
+            setSearchResult(updatedContacts)
+          })
+        setNewNumber('')
+        setNewName('')
+      }
       return
     }
     
@@ -66,9 +77,7 @@ const App = () => {
       setPersons(updatedContacts)
     })
     .catch(error => {
-      alert(
-        '${contact.name} has already been deleted'
-      )
+      alert(`${contact.name} is already deleted`)
       setSearchResult(persons.filter(person => person.id !== contact.id))
       setPersons(persons.filter(person => person.id !== contact.id))
     })
