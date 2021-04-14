@@ -1,29 +1,3 @@
 {
-  "persons": [
-    {
-      "name": "adeler",
-      "number": "",
-      "id": 1
-    },
-    {
-      "name": "adeler",
-      "number": "",
-      "id": 2
-    },
-    {
-      "name": "adeler",
-      "number": "",
-      "id": 3
-    },
-    {
-      "name": "adeler",
-      "number": "",
-      "id": 4
-    },
-    {
-      "name": "adeler",
-      "number": "",
-      "id": 5
-    }
-  ]
+  "persons": []
 }
