@@ -21,12 +21,20 @@ const App = () => {
       })
   }, [])
   
+  // Adds new contact onto server
   const addName = (event) => {
     event.preventDefault()
     const nameObject = {
       name: newName,
       number: newNumber
     }
+
+    const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
+    if (match) {
+      alert (`${newName} is already in phonebook`)
+      return
+    }
+    
     contactService
       .addContacts(nameObject)
       .then(newContact => {
@@ -44,6 +52,22 @@ const App = () => {
   const handleNumberInput  = (event) => {
     setNewNumber(event.target.value)
   }
+  
+  // Deletes contacts
+  const handleDelete = (event) => {
+    contactService.deleteContact(event.target.value).then(updatedContacts => {
+      setPersons(updatedContacts)
+      setSearchResult(updatedContacts)
+    })
+    .catch(error => {
+     alert(
+      'Contact has already been deleted'
+     )
+    setPersons(persons.filter(person => person.id !== event.target.value))
+    setSearchResult(persons.filter(person => person.id !== event.target.value))
+    })
+      
+  }
 
   const searchNames = (event) => {
     const value = event.target.value
@@ -59,7 +83,7 @@ const App = () => {
       <PersonForm submit={addName} nameValue={newName} nameInput={handleNameInput} 
         numberValue={newNumber} numberInput={handleNumberInput}/>
       <h2>Numbers</h2>
-      <Persons numbers={searchResult}/>
+      <Persons numbers={searchResult} handleDelete={handleDelete}/>
     </div>
   )
 }

@@ -11,4 +11,9 @@ const addContacts = contactObject => {
     return request.then(response => response.data)
 }
 
-export default { getContacts, addContacts }
+const deleteContact = contactID => {
+    axios.delete(`${url}/${contactID}`)
+    return getContacts()
+}
+
+export default { getContacts, addContacts, deleteContact }
