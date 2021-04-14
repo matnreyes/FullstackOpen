@@ -28,13 +28,15 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    const match = persons.find((person) => person.name === nameObject.name)
-    match ? window.alert(`${nameObject.name} is already in the phonebook`) : 
+    axios
+      .post('http://localhost:3001/persons', nameObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setSearchResult(persons.concat(response.data))
+        setNewNumber('')
+        setNewName('')
 
-    setPersons(persons.concat(nameObject))
-    setSearchResult(persons.concat(nameObject))
-    setNewNumber('')
-    setNewName('')
+      })
   }
 
   const handleNameInput = (event) => {
@@ -48,9 +50,7 @@ const App = () => {
   const searchNames = (event) => {
     const value = event.target.value
     setNewSearch(value)
-    value === '' ? 
-      setSearchResult(persons) :
-      setSearchResult(persons.filter((person) => person.name.toUpperCase() === value.toUpperCase()))
+    setSearchResult(persons.filter(person => person.name.toUpperCase().includes(value.toUpperCase())))
   }
 
   return (
