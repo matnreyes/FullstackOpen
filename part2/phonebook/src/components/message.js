@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Message = ({ message}) => {
+const Message = ({message}) => {
+    // Style for Message conmponent
     const messageStyle = {
-        color: 'green',
         background: 'lightgrey',
         fontSize: 20,
         fontStyle: 'bold',
@@ -15,10 +15,11 @@ const Message = ({ message}) => {
     if (message === null) {
         return null
     }
+    message.isError ? messageStyle.color = 'red' : messageStyle.color = 'green'
 
     return (
         <div style={messageStyle}>
-            {message}
+            {message.content}
         </div>
     )
 }
