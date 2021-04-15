@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Filter from './components/filter'
 import PersonForm from './components/personform'
+import Message from './components/message'
 import Persons from './components/persons'
 import contactService from './services/contacts'
 
@@ -10,7 +11,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
-  
+  const [ message, setMessage ] = useState(null)
+
   // Load person data from server 
   useEffect( () => {
     contactService
@@ -37,6 +39,10 @@ const App = () => {
         contactService
           .updateContact(nameObject)
           .then(updatedContacts => {
+            setMessage(`${newName} has been updated`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
             setPersons(updatedContacts)
             setSearchResult(updatedContacts)
           })
@@ -49,6 +55,10 @@ const App = () => {
     contactService
       .addContacts(nameObject)
       .then(newContact => {
+        setMessage(`${newName} added to phonebook`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 4000)
         setPersons(persons.concat(newContact))
         setSearchResult(persons.concat(newContact))
       })
@@ -73,11 +83,18 @@ const App = () => {
     }
 
     contactService.deleteContact(contact.id).then(updatedContacts => {
+      setMessage(`${contact.name} has been deleted`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 4000)
       setSearchResult(updatedContacts)
       setPersons(updatedContacts)
     })
     .catch(error => {
-      alert(`${contact.name} is already deleted`)
+      setMessage(`${contact.name} is already deleted`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 4000)
       setSearchResult(persons.filter(person => person.id !== contact.id))
       setPersons(persons.filter(person => person.id !== contact.id))
     })
@@ -91,6 +108,7 @@ const App = () => {
 
   return (
     <div>
+      <Message message={message}/>
       <h2>Phonebook</h2>
       <Filter value={newSearch} filter={searchNames}/>
       <h2>add a new</h2>
