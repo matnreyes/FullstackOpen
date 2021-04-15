@@ -31,6 +31,7 @@ const App = () => {
       number: newNumber
     }
 
+    // Update users that are in phonebook already if name entered
     const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
     if (match) {
       const update = window.confirm(`${match.name} already in phonebook. Would you like to update their number?`)
@@ -39,12 +40,26 @@ const App = () => {
         contactService
           .updateContact(nameObject)
           .then(updatedContacts => {
-            setMessage(`${newName} has been updated`)
+            const notifObject = {
+              content: `${newName} has been updated`,
+              isError: false
+            }
+            setMessage(notifObject)
             setTimeout(() => {
               setMessage(null)
             }, 3000)
             setPersons(updatedContacts)
             setSearchResult(updatedContacts)
+          })
+          .catch(error => {
+            const notifObject = {
+              content: `${newName} does not exist in phonebook anymore`,
+              isError: true
+            }
+            setMessage(notifObject)
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
           })
         setNewNumber('')
         setNewName('')
@@ -55,7 +70,11 @@ const App = () => {
     contactService
       .addContacts(nameObject)
       .then(newContact => {
-        setMessage(`${newName} added to phonebook`)
+        const notifObject = {
+          content: `${newName} added to phonebook`,
+          isError: false
+        }
+        setMessage(notifObject)
         setTimeout(() => {
           setMessage(null)
         }, 4000)
@@ -83,7 +102,11 @@ const App = () => {
     }
 
     contactService.deleteContact(contact.id).then(updatedContacts => {
-      setMessage(`${contact.name} has been deleted`)
+      const notifObject = {
+        content: `${contact.name} has been deleted`,
+        isError: false
+      }
+      setMessage(notifObject)
       setTimeout(() => {
         setMessage(null)
       }, 4000)
@@ -91,7 +114,11 @@ const App = () => {
       setPersons(updatedContacts)
     })
     .catch(error => {
-      setMessage(`${contact.name} is already deleted`)
+      const notifObject = {
+        content: `${contact.name} is already deleted`,
+        isError: true
+      }
+      setMessage(notifObject)
       setTimeout(() => {
         setMessage(null)
       }, 4000)
@@ -108,14 +135,14 @@ const App = () => {
 
   return (
     <div>
-      <Message message={message}/>
+      <Message message={message} />
       <h2>Phonebook</h2>
-      <Filter value={newSearch} filter={searchNames}/>
+      <Filter value={newSearch} filter={searchNames} />
       <h2>add a new</h2>
       <PersonForm submit={addName} nameValue={newName} nameInput={handleNameInput} 
-        numberValue={newNumber} numberInput={handleNumberInput}/>
+        numberValue={newNumber} numberInput={handleNumberInput} />
       <h2>Numbers</h2>
-      <Persons numbers={searchResult} handleDelete={handleDelete}/>
+      <Persons numbers={searchResult} handleDelete={handleDelete} />
     </div>
   )
 }
