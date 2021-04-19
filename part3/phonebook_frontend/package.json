@@ -18,6 +18,7 @@
     "server": "json-server -p3001 --watch db.json",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
