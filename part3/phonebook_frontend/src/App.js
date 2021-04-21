@@ -18,7 +18,6 @@ const App = () => {
     contactService
       .getContacts()
       .then(contacts => {
-        console.log(contacts)
         setPersons(contacts)
         setSearchResult(contacts)
       })
