@@ -18,6 +18,7 @@ const App = () => {
     contactService
       .getContacts()
       .then(contacts => {
+        console.log(contacts)
         setPersons(contacts)
         setSearchResult(contacts)
       })
@@ -31,8 +32,10 @@ const App = () => {
       number: newNumber
     }
 
-    // Update users that are in phonebook already if name entered
-    const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
+
+
+    // EDITED OUT TIL FIND FUNCTION UPDATED IN BACKEND: Update users that are in phonebook already if name entered 
+    /* const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
     if (match) {
       const update = window.confirm(`${match.name} already in phonebook. Would you like to update their number?`)
       if (update) {
@@ -65,7 +68,7 @@ const App = () => {
         setNewName('')
       }
       return
-    }
+    */ }
     
     contactService
       .addContacts(nameObject)
