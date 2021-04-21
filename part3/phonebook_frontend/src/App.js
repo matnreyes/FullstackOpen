@@ -68,7 +68,7 @@ const App = () => {
         setNewName('')
       }
       return
-    */ }
+     }*/
     
     contactService
       .addContacts(nameObject)
