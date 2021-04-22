@@ -76,7 +76,7 @@ const App = () => {
         setSearchResult(persons.concat(newContact))
       })
       .catch(error => {
-        console.log(error.response.data)
+        console.log(error.response.data.error)
         const errorObject = {
           content: error.response.data.error,
           isError: true
