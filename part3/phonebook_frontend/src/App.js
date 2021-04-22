@@ -31,8 +31,6 @@ const App = () => {
       number: newNumber
     }
 
-
-
     const match = persons.find(person => person.name.toUpperCase() === newName.toUpperCase())
     if (match) {
       const update = window.confirm(`${match.name} already in phonebook. Would you like to update their number?`)
@@ -141,9 +139,7 @@ const App = () => {
   const searchNames = (event) => {
     const value = event.target.value
     setNewSearch(value)
-    setSearchResult(persons.filter(person => {
-      console.log(person);
-      person.name.toUpperCase().includes(value.toUpperCase())} ))
+    setSearchResult(persons.filter(person => person.name.toUpperCase().includes(value.toUpperCase())))
   }
 
   return (
