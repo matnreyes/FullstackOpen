@@ -52,7 +52,7 @@ const App = () => {
           })
           .catch(error => {
             const notifObject = {
-              content: `${newName} does not exist in phonebook anymore`,
+              content: error.response.data.error,
               isError: true
             }
             setMessage(notifObject)
@@ -69,20 +69,16 @@ const App = () => {
     contactService
       .addContacts(nameObject)
       .then(newContact => {
-        const notifObject = {
-          content: `${newName} added to phonebook`,
-          isError: false
-        }
+        const notifObject = { content: `${newName} added to phonebook`, isError: false }
         setMessage(notifObject)
-        setTimeout(() => {
-          setMessage(null)
-        }, 4000)
+        setTimeout(() => { setMessage(null) }, 4000)
         setPersons(persons.concat(newContact))
         setSearchResult(persons.concat(newContact))
       })
       .catch(error => {
+        console.log(error.response.data)
         const errorObject = {
-          content: 'Not enough information provided',
+          content: error.response.data.error,
           isError: true
         }
         setMessage(errorObject)
