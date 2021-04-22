@@ -106,7 +106,7 @@ const App = () => {
   
   // Deletes contacts
   const handleDelete = (event) => {
-    const contact = persons.find(person => person.id === parseInt(event.target.value))
+    const contact = persons.find(person => person.id === event.target.value)
     const userChoice = window.confirm(`Are you sure you want to delete ${contact.name}?`)
     if (!userChoice) {
       return
