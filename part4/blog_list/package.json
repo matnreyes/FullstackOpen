@@ -1,0 +1,33 @@
+{
+  "name": "blog_list",
+  "version": "1.0.0",
+  "description": "App to keep track of blog posts",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matnreyes/FullstackOpen.git"
+  },
+  "keywords": [
+    "bloglist"
+  ],
+  "author": "Matias N Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matnreyes/FullstackOpen/issues"
+  },
+  "homepage": "https://github.com/matnreyes/FullstackOpen#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
