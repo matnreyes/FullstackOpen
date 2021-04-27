@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \\\"Error: no test specified\\\" && exit 1",
-    "dev": "nodemon index.js"
+    "test": "jest --verbose",
+    "dev": "nodemon index.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -25,9 +26,12 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.5"
+    "mongoose": "^5.12.5",
+    "tests": "^0.4.2"
   },
   "devDependencies": {
+    "eslint": "^7.25.0",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.7"
   }
 }
