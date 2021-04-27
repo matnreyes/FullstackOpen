@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "Title": "Best Vegan Chocolate Chip Cookies",
-    "Author": "Chloe Saphrites",
-    "url": "http://Bon-appetite.com/",
+    "title": "Best Vegan Chocolate Chip Cookies",
+    "author": "Chloe Saphrites",
+    "url": "reddit.com",
     "likes": 100
 }
