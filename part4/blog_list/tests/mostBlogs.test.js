@@ -1,4 +1,4 @@
-const listHelper = require('../utils/list_helper').favoriteBlog
+const mostLiked = require('../utils/list_helper').mostBlogs
 
 const blogs = [
   {
@@ -7,14 +7,6 @@ const blogs = [
     author: 'Michael Chan',
     url: 'https://reactpatterns.com/',
     likes: 7,
-    __v: 0
-  },
-  {
-    _id: '5a422b891b54a676234d17fa',
-    title: 'First class tests',
-    author: 'Robert C. Martin',
-    url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
-    likes: 10,
     __v: 0
   },
   {
@@ -34,6 +26,14 @@ const blogs = [
     __v: 0
   },
   {
+    _id: '5a422b891b54a676234d17fa',
+    title: 'First class tests',
+    author: 'Robert C. Martin',
+    url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
+    likes: 10,
+    __v: 0
+  },
+  {
     _id: '5a422ba71b54a676234d17fb',
     title: 'TDD harms architecture',
     author: 'Robert C. Martin',
@@ -48,12 +48,17 @@ const blogs = [
     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
     likes: 2,
     __v: 0
-  }  
+  }
 ]
 
-describe('favorite blog', () => {
-  test('when there are multiple blogs', () => {
-    const result = listHelper(blogs)
-    expect(result).toEqual('Canonical string reduction')
+describe('most blogs', () => {
+  test('when there is one author with the most blogs', () => {
+    const expectedResult = {
+      author: 'Robert C. Martin',
+      blogs: 3
+    }
+
+    const result = mostLiked(blogs)
+    expect(result).toEqual(expectedResult)
   })
 })
