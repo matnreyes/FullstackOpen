@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const dummy = (blogs) => 1
 
 const totalLikes = (blogs) => {
@@ -5,7 +6,13 @@ const totalLikes = (blogs) => {
   return result
 }
 
+const favoriteBlog = (blogs) => {
+  const blog = blogs.find(blog => blog.likes === Math.max(...blogs.map(blog => blog.likes)))
+  return blog.title
+}
+
 module.exports = {
   dummy,
-  totalLikes
+  totalLikes,
+  favoriteBlog
 }

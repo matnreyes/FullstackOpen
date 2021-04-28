@@ -1,19 +1,19 @@
 const listHelper = require('../utils/list_helper').totalLikes
 
+const multiBlog = [
+  { likes: 1 },
+  { likes: 2 },
+  { likes: 3 },
+  { likes: 4 }
+]
+
+const listWithOneBlog = [
+  { likes: 34 }
+]
+
+const emptyList = []
+
 describe('total likes', () => {
-  const multiBlog = [
-    { likes: 1 },
-    { likes: 2 },
-    { likes: 3 },
-    { likes: 4 }
-  ]
-
-  const listWithOneBlog = [
-    { likes: 34 }
-  ]
-
-  const emptyList = []
-
   test('when list has multiple blogs', () => {
     const result = listHelper(multiBlog)
     expect(result).toBe(10)
