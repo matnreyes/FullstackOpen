@@ -4,9 +4,9 @@
   "description": "App to keep track of blog posts",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
-    "test": "NODE_ENV=test jest --verbose -runInBand",
-    "dev": "NODE_ENV=development nodemon index.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test jest --testEnvironment=node --verbose -runInBand",
+    "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
-    "mongoose": "^5.12.5"
+    "mongoose": "^5.12.5",
+    "package.json": "^2.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
