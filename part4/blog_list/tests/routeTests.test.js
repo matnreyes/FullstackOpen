@@ -60,6 +60,28 @@ test('verify name of blog unique identifier', async () => {
   expect(response.body.id).toBeDefined()
 })
 
+test('check that new blog is added to database', async () => {
+  const newBlog = {
+    title: 'Pizza is a great snack (Part 3)',
+    author: 'Anothony Hopkins',
+    url: 'digiornos.com',
+    likes: 300
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const allBlogs = await api
+    .get('/api/blogs')
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(allBlogs.body.length).toEqual(initialBlogs.length + 1)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
