@@ -43,6 +43,23 @@ test('fetch all the blogs in db', async () => {
   expect(blogs.length).toEqual(initialBlogs.length)
 })
 
+test('verify name of blog unique identifier', async () => {
+  const newBlog = {
+    title: 'Pizza is a great snack (Part 2)',
+    author: 'John Walker',
+    url: 'pizzahut.com',
+    likes: 200
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(response.body.id).toBeDefined()
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
