@@ -116,6 +116,32 @@ describe('field is missing', () => {
   })
 })
 
+test('delete a blog that was just added', async () => {
+  const newBlog = {
+    title: 'Super Mario Land at Universal',
+    author: 'IGN',
+    likes: 322,
+    url: 'ign.com'
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  console.log(response.body.id);
+
+  await api
+    .delete(`/api/blogs/${response.body.id}`)
+    .expect(200)
+
+  const finalResp = await api
+    .get(`/api/blogs/${response.body.id}`)
+
+  expect(finalResp.status).toEqual(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
