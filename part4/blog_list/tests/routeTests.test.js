@@ -82,6 +82,22 @@ test('check that new blog is added to database', async () => {
   expect(allBlogs.body.length).toEqual(initialBlogs.length + 1)
 })
 
+test('missing likes property defaults to 0', async () => {
+  const newBlog = {
+    title: 'Pizza is a horrible snack',
+    author: 'Paul Newman',
+    url: 'fakeblog.com'
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(response.body.likes).toEqual(0)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
