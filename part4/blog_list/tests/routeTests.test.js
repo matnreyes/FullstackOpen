@@ -130,8 +130,6 @@ test('delete a blog that was just added', async () => {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-  console.log(response.body.id);
-
   await api
     .delete(`/api/blogs/${response.body.id}`)
     .expect(200)
