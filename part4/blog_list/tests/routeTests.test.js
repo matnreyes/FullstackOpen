@@ -82,35 +82,38 @@ test('check that new blog is added to database', async () => {
   expect(allBlogs.body.length).toEqual(initialBlogs.length + 1)
 })
 
-test('missing likes property defaults to 0', async () => {
-  const newBlog = {
-    title: 'Pizza is a horrible snack',
-    author: 'Paul Newman',
-    url: 'fakeblog.com'
-  }
 
-  const response = await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
+describe('field is missing', () => {
+  test('missing likes property defaults to 0', async () => {
+    const newBlog = {
+      title: 'Pizza is a horrible snack',
+      author: 'Paul Newman',
+      url: 'fakeblog.com'
+    }
 
-  expect(response.body.likes).toEqual(0)
-})
+    const response = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
 
-test('missing title and url', async () => {
-  const newBlog = {
-    author: 'Johnny Bravo',
-    likes: 3
-  }
+    expect(response.body.likes).toEqual(0)
+  })
 
-  const response = await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(400)
-    .expect('Content-Type', /application\/json/)
+  test('missing title and url', async () => {
+    const newBlog = {
+      author: 'Johnny Bravo',
+      likes: 3
+    }
 
-  expect(response.status).toEqual(400)
+    const response = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(response.status).toEqual(400)
+  })
 })
 
 afterAll(() => {
