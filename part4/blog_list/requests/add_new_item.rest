@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Best Vegan Chocolate Chip Cookies",
-    "author": "Chloe Saphrites",
-    "url": "reddit.com",
-    "likes": 100
+    "title": "Dunking Donuts 2",
+    "author": "Al Paccino",
+    "url": "dunkin.com",
+    "likes": 200
 }

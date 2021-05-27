@@ -3,6 +3,6 @@ Content-Type: application/json
 
 {
   "username": "root1",
-  "password": "",
+  "password": "adminpass",
   "name": "Root Access"
 }
