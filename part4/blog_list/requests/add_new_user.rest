@@ -2,7 +2,8 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "username": "root1",
+  "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QyIiwiaWQiOiI2MGFmMTdjNjRkYzRmYTM3MzkyNzYyYWYiLCJpYXQiOjE2MjIxNzQ3MzV9.LdkS2Ufp9SqH6XsWNsSdWkdOCPKPngFNVvxWn8u2ogY",
+  "username": "root2",
   "password": "adminpass",
   "name": "Root Access"
 }

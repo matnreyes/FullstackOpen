@@ -2,7 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Dunking Donuts 2",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QyIiwiaWQiOiI2MGFmMTdjNjRkYzRmYTM3MzkyNzYyYWYiLCJpYXQiOjE2MjIxNzUwMjd9.tdXk6XyznxSEiPOH54wajx1lakaZAYuCayhI_Jw1Iao",
+    "title": "Dunking Donuts 3",
     "author": "Al Paccino",
     "url": "dunkin.com",
     "likes": 200
