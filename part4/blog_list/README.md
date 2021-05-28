@@ -1,4 +1,4 @@
-BlogList
+#BlogList
 
 Simple REST API for users to store their favorite blogs. It saves the title, author, url, and number of likes.
 
