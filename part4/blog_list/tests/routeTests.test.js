@@ -24,13 +24,24 @@ const initialBlogs = [
   }
 ]
 
+// Save information for user logged in to alter DB
 const user = {
   username: 'root',
   password: 'admin'
 }
+let sessionUser
 
 beforeEach(async () => {
   await Blog.deleteMany({})
+
+  await api
+    .post('/api/users')
+    .send(user)
+
+  sessionUser = await api
+    .post('/api/login')
+    .send(user)
+  sessionUser = sessionUser.body.token
 
   const blogObjects = initialBlogs
     .map(blog => new Blog(blog))
@@ -41,6 +52,7 @@ beforeEach(async () => {
 test('fetch all the blogs in db', async () => {
   const response = await api
     .get('/api/blogs')
+    .set('authorization', `bearer ${sessionUser}`)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
@@ -56,14 +68,9 @@ test('verify name of blog unique identifier', async () => {
     likes: 200
   }
 
-  const sessionUser = await api
-    .post('/api/login')
-    .send(user)
-
-  console.log(sessionUser)
   const response = await api
     .post('/api/blogs')
-    .set('authorization', sessionUser.token)
+    .set('authorization', `bearer ${sessionUser}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
@@ -79,20 +86,15 @@ test('check that new blog is added to database', async () => {
     likes: 300
   }
 
-  const sessionUser = await api
-    .post('/api/login')
-    .send(user)
-    .expect('Content-Type', /application\/json/)
-
   await api
-    .post('/api/blogs').set('authorization', `bearer ${sessionUser.body.token}`)
+    .post('/api/blogs').set('authorization', `bearer ${sessionUser}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
   const allBlogs = await api
     .get('/api/blogs')
-    .set('authorization', `bearer ${sessionUser.body.token}`)
+    .set('authorization', `bearer ${sessionUser}`)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
@@ -110,6 +112,7 @@ describe('field is missing', () => {
 
     const response = await api
       .post('/api/blogs')
+      .set('authorization', `bearer ${sessionUser}`)
       .send(newBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)
@@ -125,6 +128,7 @@ describe('field is missing', () => {
 
     const response = await api
       .post('/api/blogs')
+      .set('authorization', `bearer ${sessionUser}`)
       .send(newBlog)
       .expect(400)
       .expect('Content-Type', /application\/json/)
@@ -143,16 +147,19 @@ test('delete a blog that was just added', async () => {
 
   const response = await api
     .post('/api/blogs')
+    .set('authorization', `bearer ${sessionUser}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
   await api
     .delete(`/api/blogs/${response.body.id}`)
-    .expect(200)
+    .send('authorization', `bearer ${sessionUser}`)
+    .expect(204)
 
   const finalResp = await api
     .get(`/api/blogs/${response.body.id}`)
+    .set('authorization', `bearer ${sessionUser}`)
 
   expect(finalResp.status).toEqual(400)
 })
@@ -160,6 +167,7 @@ test('delete a blog that was just added', async () => {
 test('update likes on a blog', async () => {
   const blogs = await api
     .get('/api/blogs')
+    .set('authorization', `bearer ${sessionUser}`)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
@@ -169,6 +177,7 @@ test('update likes on a blog', async () => {
 
   const update = await api
     .put(`/api/blogs/${blogs.body[0].id}`)
+    .set('authorization', `bearer ${sessionUser}`)
     .send(updatedLikes)
     .expect(200)
     .expect('Content-Type', /application\/json/)
