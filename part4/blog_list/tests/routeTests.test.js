@@ -154,14 +154,13 @@ test('delete a blog that was just added', async () => {
 
   await api
     .delete(`/api/blogs/${response.body.id}`)
-    .send('authorization', `bearer ${sessionUser}`)
+    .set('authorization', `bearer ${sessionUser}`)
     .expect(204)
 
-  const finalResp = await api
+  await api
     .get(`/api/blogs/${response.body.id}`)
     .set('authorization', `bearer ${sessionUser}`)
-
-  expect(finalResp.status).toEqual(400)
+    .expect(400)
 })
 
 test('update likes on a blog', async () => {
