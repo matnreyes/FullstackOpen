@@ -184,6 +184,20 @@ test('update likes on a blog', async () => {
   expect(update.body.likes).toEqual(300)
 })
 
+test('adding blog with no auth token', async () => {
+  const newBlog = {
+    title: 'Monkey',
+    author: 'Carlito',
+    url: 'casadegatos.com',
+    likes: 426
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(401)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
