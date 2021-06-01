@@ -5,7 +5,7 @@ const User = require('../models/user')
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
     .find({}).populate('user', { username: 1, name: 1 })
-  response.json(blogs.map(blog => blog.toJSON()))
+  response.json(blogs.map(blog => blog.toJSON())).status(200)
 })
 
 blogsRouter.get('/:id', async (request, response) => {
@@ -39,7 +39,6 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  console.log('foo')
   const blog = await Blog.findById(request.params.id)
   if (!request.user || (blog.user.toString() !== request.user.id)) {
     response.status(401).json({ error: 'user does not have permission to delete the note' })
