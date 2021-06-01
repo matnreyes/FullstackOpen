@@ -24,6 +24,11 @@ const initialBlogs = [
   }
 ]
 
+const user = {
+  username: 'root',
+  password: 'admin'
+}
+
 beforeEach(async () => {
   await Blog.deleteMany({})
 
@@ -51,8 +56,14 @@ test('verify name of blog unique identifier', async () => {
     likes: 200
   }
 
+  const sessionUser = await api
+    .post('/api/login')
+    .send(user)
+
+  console.log(sessionUser)
   const response = await api
     .post('/api/blogs')
+    .set('authorization', sessionUser.token)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
@@ -68,14 +79,20 @@ test('check that new blog is added to database', async () => {
     likes: 300
   }
 
+  const sessionUser = await api
+    .post('/api/login')
+    .send(user)
+    .expect('Content-Type', /application\/json/)
+
   await api
-    .post('/api/blogs')
+    .post('/api/blogs').set('authorization', `bearer ${sessionUser.body.token}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
   const allBlogs = await api
     .get('/api/blogs')
+    .set('authorization', `bearer ${sessionUser.body.token}`)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
