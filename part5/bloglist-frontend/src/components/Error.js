@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Error = error => {
+const Error = ({error}) => {
   const messageStyle = {
     background: 'lightgrey',
     fontSize: 20,

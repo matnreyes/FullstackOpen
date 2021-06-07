@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import Login from './components/Login'
 import Submission from './components/Submission'
 import Notification from './components/Notification'
+import Error from './components/Error'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -73,26 +74,28 @@ const App = () => {
     
   }
 
-  if (user === null) {
-    return (
-      <div> 
-        <h2>Log in to the application</h2>
-        <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
-      </div>
-    )
-  }
-
   return (
     <div>
+      {errorMessage !== null
+      ? <Error error={errorMessage}/>
+      : null}
       {message !== null 
       ? <Notification message={message}/>
       : null}
-      <h2>blogs</h2>
-      <h4>{user.name} logged in</h4>
-      <Submission title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} url={url} setUrl={setUrl} submit={handleSubmit}/>
-      <div>
-        {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
-      </div>
+      {user === null
+      ? <div> 
+          <h2>Log in to the application</h2>
+          <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
+        </div>
+      : <div>   
+          <h2>blogs</h2>
+          <h4>{user.name} logged in</h4>
+          <Submission title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} url={url} setUrl={setUrl} submit={handleSubmit}/>
+          <div>
+            {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
+          </div>
+        </div>
+      }
     </div>
   )
 }
