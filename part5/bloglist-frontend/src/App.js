@@ -10,6 +10,9 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
@@ -45,6 +48,10 @@ const App = () => {
     }
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+  }
+
   if (user === null) {
     return (
       <div> 
@@ -58,7 +65,10 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <h4>{user.name} logged in</h4>
-      {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
+      <Submission title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} url={url} setUrl={setUrl} submit={handleSubmit}/>
+      <div>
+        {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
+      </div>
     </div>
   )
 }

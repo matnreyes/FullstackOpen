@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Submission = ({title, setTitle, author, setAuthor, url, setUrl}) => (
+const Submission = ({title, setTitle, author, setAuthor, url, setUrl, submit}) => (
   <div>
     <h2>Create new</h2>
     <form>
