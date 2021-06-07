@@ -15,5 +15,6 @@ const getAll = async () => {
   return response.data
 }
 
+const modules = { getAll, setToken }
 
-export default { getAll, setToken }
+export default modules
