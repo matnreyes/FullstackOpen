@@ -24,11 +24,9 @@ const App = () => {
       const userInfo = JSON.parse(loggedUserJson)
       setUser(userInfo)
       blogService.setToken(userInfo.token)
-      blogService
-        .getAll()
-        .then(blogs => setBlogs(blogs))
+      blogService.getAll().then(blogs => setBlogs(blogs))
     }
-  }, [])
+  }, user)
 
   const handleLogin = async (event) => {
     event.preventDefault()
