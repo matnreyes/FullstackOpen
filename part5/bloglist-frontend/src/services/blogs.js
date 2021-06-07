@@ -15,6 +15,15 @@ const getAll = async () => {
   return response.data
 }
 
-const modules = { getAll, setToken }
+const createNew = async params => {
+  const config = {
+    headers: { Authorization : token }
+  }
+
+  const response = await axios.post(baseUrl, params, config)
+  return response.data
+}
+
+const modules = { getAll, setToken, createNew }
 
 export default modules
