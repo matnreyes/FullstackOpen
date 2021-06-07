@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import blogService from './services/blogs'
@@ -11,6 +11,15 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+  //   if (loggedUserJSON !== null) {
+  //     const user = JSON.parse(loggedUserJSON)
+  //     setUser(user)
+  //     blogService.setToken(user.token)
+  //   }
+  // }, [])
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -19,16 +28,13 @@ const App = () => {
       })
 
       blogService.setToken(userInfo.token)
-      window.localStorage.setItem(
-        'loggedBloglistUser', JSON.stringify(user)
-      )
 
+      const blogResponse = await blogService.getAll()
+      setBlogs(blogResponse)
+
+      setUser(userInfo)
       setUsername('')
       setPassword('')
-      setUser(user)
-
-      blogService.getAll().then(blogs =>
-        setBlogs(blogs))
     } catch (exception) {
       setErrorMessage('wrong credentials')
       setTimeout(() => {
@@ -43,7 +49,7 @@ const App = () => {
       ? <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
       : blogs.map(blog =>
         <Blog key={blog.id} blog={blog}/>
-        )}
+      )}
     </div>
   )
 }
