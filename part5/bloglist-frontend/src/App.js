@@ -11,14 +11,21 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
-  // useEffect(() => {
-  //   const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
-  //   if (loggedUserJSON !== null) {
-  //     const user = JSON.parse(loggedUserJSON)
-  //     setUser(user)
-  //     blogService.setToken(user.token)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const loggedUserJson = window.localStorage.getItem('loggedBloglistUser')
+    if (loggedUserJson !== null) {
+      const userInfo = JSON.parse(loggedUserJson)
+      setUser(userInfo)
+      blogService.setToken(userInfo.token)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user !== null) {
+      blogService.getAll().then(blogs => setBlogs(blogs))
+    }
+  })
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -28,7 +35,7 @@ const App = () => {
       })
 
       blogService.setToken(userInfo.token)
-
+      window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
       const blogResponse = await blogService.getAll()
       setBlogs(blogResponse)
 
@@ -43,13 +50,17 @@ const App = () => {
     }
   }
 
+  if (user === null) {
+    return (
+      <div> 
+        <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
+      </div>
+    )
+  }
+
   return (
     <div>
-      {user === null
-      ? <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
-      : blogs.map(blog =>
-        <Blog key={blog.id} blog={blog}/>
-      )}
+      {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
     </div>
   )
 }
