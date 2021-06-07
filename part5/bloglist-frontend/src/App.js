@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Submission from './components/Submission'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -13,6 +14,7 @@ const App = () => {
   const [author, setAuthor] = useState('')
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
+  const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
@@ -52,6 +54,12 @@ const App = () => {
     event.preventDefault()
     try {
       const newBlog = await blogService.createNew({ title, author, url })
+      
+      setMessage(`${title} has been added`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+
       setTitle('')
       setAuthor('')
       setUrl('')
@@ -76,6 +84,9 @@ const App = () => {
 
   return (
     <div>
+      {message !== null 
+      ? <Notification message={message}/>
+      : null}
       <h2>blogs</h2>
       <h4>{user.name} logged in</h4>
       <Submission title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} url={url} setUrl={setUrl} submit={handleSubmit}/>
