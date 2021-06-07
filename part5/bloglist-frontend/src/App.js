@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
+import Submission from './components/Submission'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
