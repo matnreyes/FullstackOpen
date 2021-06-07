@@ -51,10 +51,11 @@ const App = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await blogService.createNew({ title, author, url })
+      const newBlog = await blogService.createNew({ title, author, url })
       setTitle('')
       setAuthor('')
       setUrl('')
+      setBlogs(blogs.concat(newBlog))
     } catch (exception) {
       setErrorMessage('missing field')
       setTimeout(() => {
