@@ -50,6 +50,18 @@ const App = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    try {
+      await blogService.createNew({ title, author, url })
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+    } catch (exception) {
+      setErrorMessage('missing field')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)   
+    }
+    
   }
 
   if (user === null) {
