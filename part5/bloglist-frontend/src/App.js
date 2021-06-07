@@ -17,15 +17,11 @@ const App = () => {
       const userInfo = JSON.parse(loggedUserJson)
       setUser(userInfo)
       blogService.setToken(userInfo.token)
+      blogService
+        .getAll()
+        .then(blogs => setBlogs(blogs))
     }
   }, [])
-
-  useEffect(() => {
-    if (user !== null) {
-      blogService.getAll().then(blogs => setBlogs(blogs))
-    }
-  })
-
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -36,8 +32,6 @@ const App = () => {
 
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
-      const blogResponse = await blogService.getAll()
-      setBlogs(blogResponse)
 
       setUser(userInfo)
       setUsername('')
@@ -62,7 +56,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <h3>{user.name} logged in</h3>
+      <h4>{user.name} logged in</h4>
       {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
     </div>
   )
