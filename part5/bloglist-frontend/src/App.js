@@ -75,7 +75,6 @@ const App = () => {
 
   const blogForm = () => (
     <Togglable buttonLabel='create new blog'>
-      <h2>Create new</h2>
       <Submission
         title={title}
         setTitle={setTitle}
