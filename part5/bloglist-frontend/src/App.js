@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Submission from './components/Submission'
+import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import Error from './components/Error'
 import blogService from './services/blogs'
@@ -72,6 +73,21 @@ const App = () => {
     
   }
 
+  const blogForm = () => (
+    <Togglable buttonLabel='create new blog'>
+      <h2>Create new</h2>
+      <Submission
+        title={title}
+        setTitle={setTitle}
+        author={author}
+        setAuthor={setAuthor}
+        url={url}
+        setUrl={setUrl}
+        submit={handleSubmit}
+      />
+    </Togglable>
+  )
+
   return (
     <div>
       {errorMessage !== null
@@ -81,14 +97,14 @@ const App = () => {
       ? <Notification message={message}/>
       : null}
       {user === null
-      ? <div> 
+      ? <div>
           <h2>Log in to the application</h2>
           <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
         </div>
       : <div>   
           <h2>blogs</h2>
           <h4>{user.name} logged in</h4>
-          <Submission title={title} setTitle={setTitle} author={author} setAuthor={setAuthor} url={url} setUrl={setUrl} submit={handleSubmit}/>
+          {blogForm()}
           <div>
             {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
           </div>
