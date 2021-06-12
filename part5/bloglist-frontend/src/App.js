@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Submission from './components/Submission'
@@ -13,11 +13,10 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [author, setAuthor] = useState('')
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
   const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+
+  const blogFormRef = useRef()
 
   useEffect(() => {
     const loggedUserJson = window.localStorage.getItem('loggedBloglistUser')
@@ -28,17 +27,17 @@ const App = () => {
       blogService.getAll().then(blogs => setBlogs(blogs))
     }
   }, user)
-
+  
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const userInfo = await loginService.login({
         username, password
       })
-
+      
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
-
+      
       setUser(userInfo)
       setUsername('')
       setPassword('')
@@ -49,40 +48,29 @@ const App = () => {
       }, 5000)
     }
   }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  
+  const addBlog = (blogObject) => {
+    blogFormRef.current.toggleVisbilitty()
     try {
-      const newBlog = await blogService.createNew({ title, author, url })
-      
-      setMessage(`${title} has been added`)
+      blogService
+        .createNew(blogObject)
+        .then(returnedBlog => setBlogs(blogs.concat(returnedBlog)))
+      setMessage('blog added')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
-
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-      setBlogs(blogs.concat(newBlog))
     } catch (exception) {
       setErrorMessage('missing field')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)   
     }
-    
   }
 
   const blogForm = () => (
-    <Togglable buttonLabel='create new blog'>
+    <Togglable buttonLabel='create new blog' ref={blogFormRef}>
       <Submission
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        url={url}
-        setUrl={setUrl}
-        submit={handleSubmit}
+        addBlog={addBlog}
       />
     </Togglable>
   )
