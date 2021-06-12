@@ -50,7 +50,7 @@ const App = () => {
   }
   
   const addBlog = (blogObject) => {
-    blogFormRef.current.toggleVisbilitty()
+    blogFormRef.current.toggleVisibility()
     try {
       blogService
         .createNew(blogObject)
