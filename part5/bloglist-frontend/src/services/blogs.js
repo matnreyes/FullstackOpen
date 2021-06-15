@@ -41,12 +41,12 @@ const updateLikes = async blog => {
   return response.data
 }
 
-const deleteBlog = async blog => {
+const deleteBlog = async id => {
   const config = {
     headers: {Authorization: token}
   }
 
-  await axios.delete(baseUrl + '/' + blog.id, config)
+  await axios.delete(baseUrl + '/' + id, config)
   const response = await axios.getAll(baseUrl, config)
   return response.data 
 }
