@@ -47,8 +47,8 @@ const deleteBlog = async id => {
   }
 
   await axios.delete(baseUrl + '/' + id, config)
-  const response = await axios.getAll(baseUrl, config)
-  return response.data 
+  const response = await axios.get(baseUrl, config)
+  return response.data.sort((a, b) => b.likes - a.likes)
 }
 
 const modules = { getAll, setToken, createNew, updateLikes, deleteBlog }
