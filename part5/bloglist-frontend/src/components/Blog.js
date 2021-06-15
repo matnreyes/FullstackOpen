@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import blogService from '../services/blogs'
 
-const Blog = ({blog, handleLike}) => {
+const Blog = ({blog}) => {
   const [expand, setExpand] = useState(false)
   const [updatedBlog, setUpdatedBlog] = useState(blog)
 
@@ -15,20 +16,27 @@ const Blog = ({blog, handleLike}) => {
     borderWidth: 1,
     marginBottom: 5
   }
+  
+  const handleLike = (event) => {
+    event.preventDefault()
+    blogService
+      .updateLikes(updatedBlog)
+      .then(response => setUpdatedBlog(response))
+  }
+
+  const handleDelete = (event) => {
+    event.preventDefault()
+  }
 
   const expandedBlog = () => (
     <div>
       {updatedBlog.title} <button onClick={toggleExpand}>hide</button><br></br>
       {updatedBlog.author}<br></br>
       {updatedBlog.url}<br></br>
-      likes: {updatedBlog.likes} <button onClick={handleClick}>like</button>
+      likes: {updatedBlog.likes} <button onClick={handleLike}>like</button> <br></br>
+      <button onClick={handleDelete}>delete</button>
     </div>
   )
-
-  const handleClick = (event) => {
-    event.preventDefault()
-    handleLike(updatedBlog).then(response => setUpdatedBlog(response))
-  }
 
   const smallBlog = () => (
     <div>
