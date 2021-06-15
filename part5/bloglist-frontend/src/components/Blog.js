@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({blog}) => {
+const Blog = ({ blog, deleteBlog }) => {
   const [expand, setExpand] = useState(false)
   const [updatedBlog, setUpdatedBlog] = useState(blog)
 
@@ -26,6 +26,9 @@ const Blog = ({blog}) => {
 
   const handleDelete = (event) => {
     event.preventDefault()
+    if(window.confirm(`Are you sure you wish to delete blog titled ${blog.title}`)) {
+      deleteBlog(blog.id)
+    }
   }
 
   const expandedBlog = () => (
