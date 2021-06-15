@@ -14,19 +14,30 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState(null)
+  const [signed, setSigned] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const blogFormRef = useRef()
 
   useEffect(() => {
+    const time = (new Date()).getTime()
+    const expTime = window.localStorage.getItem('tokenExpiration')
+    const parsedTime = JSON.parse(expTime)
+    if (time >= parsedTime) {
+      window.localStorage.removeItem('loggedBloglistUser')
+      setSigned(false)
+      setUser(null)
+    }
+
     const loggedUserJson = window.localStorage.getItem('loggedBloglistUser')
     if (loggedUserJson !== null) {
       const userInfo = JSON.parse(loggedUserJson)
       setUser(userInfo)
+      setSigned(true)
       blogService.setToken(userInfo.token)
       blogService.getAll().then(blogs => setBlogs(blogs))
     }
-  }, user)
+  }, [signed])
   
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -37,8 +48,10 @@ const App = () => {
       
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
+      window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60))
       
       setUser(userInfo)
+      setSigned(true)
       setUsername('')
       setPassword('')
     } catch (exception) {
