@@ -22,7 +22,7 @@ const App = () => {
   useEffect(() => {
     const time = (new Date()).getTime()
     const expTime = window.localStorage.getItem('tokenExpiration')
-    const parsedTime = JSON.parse(expTime)
+    const parsedTime = JSON.parse(expTime)ç
     if (time >= parsedTime) {
       window.localStorage.removeItem('loggedBloglistUser')
       setSigned(false)
@@ -48,7 +48,7 @@ const App = () => {
       
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
-      window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60))
+      window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60 * 60))
       
       setUser(userInfo)
       setSigned(true)
