@@ -41,6 +41,16 @@ const updateLikes = async blog => {
   return response.data
 }
 
-const modules = { getAll, setToken, createNew, updateLikes }
+const deleteBlog = async blog => {
+  const config = {
+    headers: {Authorization: token}
+  }
+
+  await axios.delete(baseUrl + '/' + blog.id, config)
+  const response = await axios.getAll(baseUrl, config)
+  return response.data 
+}
+
+const modules = { getAll, setToken, createNew, updateLikes, deleteBlog }
 
 export default modules
