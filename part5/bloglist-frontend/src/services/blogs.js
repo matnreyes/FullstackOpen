@@ -12,7 +12,7 @@ const getAll = async () => {
   }
 
   const response = await axios.get(baseUrl, config)
-  return response.data
+  return response.data.sort((a , b) => b.likes - a.likes)
 }
 
 const createNew = async params => {
