@@ -24,6 +24,23 @@ const createNew = async params => {
   return response.data
 }
 
-const modules = { getAll, setToken, createNew }
+const updateLikes = async blog => {
+  const config = {
+    headers: {Authorization: token}
+  }
+  
+  const newBlog = {
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+    likes: blog.likes + 1,
+    user: blog.user
+  }
+  
+  const response = await axios.put(baseUrl + '/' + blog.id, newBlog, config)
+  return response.data
+}
+
+const modules = { getAll, setToken, createNew, updateLikes }
 
 export default modules
