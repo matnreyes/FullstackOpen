@@ -80,11 +80,6 @@ const App = () => {
     }
   }
 
-  const handleLike = (blogObject) => {
-    const response = blogService.updateLikes(blogObject)
-    return response
-  }
-
   const blogForm = () => (
     <Togglable buttonLabel='create new blog' ref={blogFormRef}>
       <Submission
@@ -111,7 +106,7 @@ const App = () => {
           <h4>{user.name} logged in</h4>
           {blogForm()}
           <div>
-            {blogs.map(blog => <Blog key={blog.id} blog={blog} handleLike={handleLike}/>)}
+            {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
           </div>
         </div>
       }
