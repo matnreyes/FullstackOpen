@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, handleLike}) => {
   const [expand, setExpand] = useState(false)
+  const [updatedBlog, setUpdatedBlog] = useState(blog)
 
   const toggleExpand = () => {
     setExpand(!expand)
@@ -17,12 +18,17 @@ const Blog = ({blog}) => {
 
   const expandedBlog = () => (
     <div>
-      {blog.title} <button onClick={toggleExpand}>hide</button><br></br>
-      {blog.author}<br></br>
-      {blog.url}<br></br>
-      likes: {blog.likes} <button>like</button>
+      {updatedBlog.title} <button onClick={toggleExpand}>hide</button><br></br>
+      {updatedBlog.author}<br></br>
+      {updatedBlog.url}<br></br>
+      likes: {updatedBlog.likes} <button onClick={handleClick}>like</button>
     </div>
   )
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    handleLike(updatedBlog).then(response => setUpdatedBlog(response))
+  }
 
   const smallBlog = () => (
     <div>
