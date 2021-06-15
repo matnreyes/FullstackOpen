@@ -80,6 +80,15 @@ const App = () => {
     }
   }
 
+  const deleteBlog = async (blogId) => {
+    const response = await blogService.deleteBlog(blogId)
+    setBlogs(response)
+    setMessage('Blog succesfully deleted')
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
   const blogForm = () => (
     <Togglable buttonLabel='create new blog' ref={blogFormRef}>
       <Submission
@@ -106,7 +115,7 @@ const App = () => {
           <h4>{user.name} logged in</h4>
           {blogForm()}
           <div>
-            {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
+            {blogs.map(blog => <Blog key={blog.id} blog={blog} deleteBlog={deleteBlog}/>)}
           </div>
         </div>
       }
