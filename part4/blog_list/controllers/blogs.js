@@ -41,7 +41,7 @@ blogsRouter.post('/', async (request, response) => {
 blogsRouter.delete('/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id)
   if (!request.user || (blog.user.toString() !== request.user.id)) {
-    response.status(401).json({ error: 'user does not have permission to delete the note' })
+    return response.status(401).json({ error: 'user does not have permission to delete the note' })
   }
 
   await Blog.findByIdAndDelete(request.params.id)
