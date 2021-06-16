@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, deleteBlog }) => {
+const Blog = ({ blog, user, deleteBlog }) => {
   const [expand, setExpand] = useState(false)
   const [updatedBlog, setUpdatedBlog] = useState(blog)
 
@@ -30,14 +30,15 @@ const Blog = ({ blog, deleteBlog }) => {
       deleteBlog(blog.id)
     }
   }
-
   const expandedBlog = () => (
     <div>
       {updatedBlog.title} <button onClick={toggleExpand}>hide</button><br></br>
       {updatedBlog.author}<br></br>
       {updatedBlog.url}<br></br>
       likes: {updatedBlog.likes} <button onClick={handleLike}>like</button> <br></br>
-      <button onClick={handleDelete}>delete</button>
+      {blog.user.id === user.id
+      ? <button onClick={handleDelete}>delete</button>
+      : null}
     </div>
   )
 
