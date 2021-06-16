@@ -45,7 +45,7 @@ const App = () => {
       const userInfo = await loginService.login({
         username, password
       })
-      
+      console.log(userInfo)
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
       window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60 * 60))
@@ -81,12 +81,20 @@ const App = () => {
   }
 
   const deleteBlog = async (blogId) => {
-    const response = await blogService.deleteBlog(blogId)
-    setBlogs(response)
-    setMessage('Blog succesfully deleted')
-    setTimeout(() => {
-      setMessage(null)
-    }, 5000)
+    try {
+      const response = await blogService.deleteBlog(blogId)
+      setBlogs(response)
+      setMessage('Blog succesfully deleted')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    } catch (error) {
+      setErrorMessage(error.response.data.error)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+
   }
 
   const blogForm = () => (
@@ -115,7 +123,7 @@ const App = () => {
           <h4>{user.name} logged in</h4>
           {blogForm()}
           <div>
-            {blogs.map(blog => <Blog key={blog.id} blog={blog} deleteBlog={deleteBlog}/>)}
+            {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} deleteBlog={deleteBlog}/>)}
           </div>
         </div>
       }
