@@ -26,9 +26,9 @@ const createNew = async params => {
 
 const updateLikes = async blog => {
   const config = {
-    headers: {Authorization: token}
+    headers: { Authorization: token }
   }
-  
+
   const newBlog = {
     title: blog.title,
     author: blog.author,
@@ -36,14 +36,14 @@ const updateLikes = async blog => {
     likes: blog.likes + 1,
     user: blog.user
   }
-  
+
   const response = await axios.put(baseUrl + '/' + blog.id, newBlog, config)
   return response.data
 }
 
 const deleteBlog = async id => {
   const config = {
-    headers: {Authorization: token}
+    headers: { Authorization: token }
   }
 
   await axios.delete(baseUrl + '/' + id, config)
