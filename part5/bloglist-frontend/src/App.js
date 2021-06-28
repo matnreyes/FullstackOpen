@@ -38,7 +38,7 @@ const App = () => {
       blogService.getAll().then(blogs => setBlogs(blogs))
     }
   }, [signed])
-  
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -49,7 +49,7 @@ const App = () => {
       blogService.setToken(userInfo.token)
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(userInfo))
       window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60 * 60))
-      
+
       setUser(userInfo)
       setSigned(true)
       setUsername('')
@@ -61,7 +61,7 @@ const App = () => {
       }, 5000)
     }
   }
-  
+
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     try {
@@ -76,7 +76,7 @@ const App = () => {
       setErrorMessage('missing field')
       setTimeout(() => {
         setErrorMessage(null)
-      }, 5000)   
+      }, 5000)
     }
   }
 
@@ -108,17 +108,17 @@ const App = () => {
   return (
     <div>
       {errorMessage !== null
-      ? <Error error={errorMessage}/>
-      : null}
-      {message !== null 
-      ? <Notification message={message}/>
-      : null}
+        ? <Error error={errorMessage}/>
+        : null}
+      {message !== null
+        ? <Notification message={message}/>
+        : null}
       {user === null
-      ? <div>
+        ? <div>
           <h2>Log in to the application</h2>
           <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword} submit={handleLogin}/>
         </div>
-      : <div>   
+        : <div>
           <h2>blogs</h2>
           <h4>{user.name} logged in</h4>
           {blogForm()}
