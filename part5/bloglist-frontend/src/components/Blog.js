@@ -16,7 +16,7 @@ const Blog = ({ blog, user, deleteBlog }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
+
   const handleLike = (event) => {
     event.preventDefault()
     blogService
@@ -37,8 +37,8 @@ const Blog = ({ blog, user, deleteBlog }) => {
       {updatedBlog.url}<br></br>
       likes: {updatedBlog.likes} <button onClick={handleLike}>like</button> <br></br>
       {blog.user.id === user.id
-      ? <button onClick={handleDelete}>delete</button>
-      : null}
+        ? <button onClick={handleDelete}>delete</button>
+        : null}
     </div>
   )
 
@@ -51,7 +51,8 @@ const Blog = ({ blog, user, deleteBlog }) => {
   return (
     <div style={blogStyle}>
       { expand ? expandedBlog() : smallBlog() }
-    </div>  
-)}
+    </div>
+  )
+}
 
 export default Blog
