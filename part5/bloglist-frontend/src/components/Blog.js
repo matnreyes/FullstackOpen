@@ -44,12 +44,17 @@ const Blog = ({ blog, user, deleteBlog }) => {
 
   const smallBlog = () => (
     <div>
-      {blog.title} <button onClick={toggleExpand}>view</button>
+      <div>
+        {blog.title} <button onClick={toggleExpand}>view</button>
+      </div>
+      <div>
+        {blog.author}
+      </div>
     </div>
   )
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blogContainer">
       { expand ? expandedBlog() : smallBlog() }
     </div>
   )
