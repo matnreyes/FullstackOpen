@@ -45,7 +45,7 @@ const Blog = ({ blog, user, deleteBlog }) => {
   const smallBlog = () => (
     <div>
       <div>
-        {blog.title} <button onClick={toggleExpand}>view</button>
+        {blog.title} <button onClick={toggleExpand} className="expandButton">view</button>
       </div>
       <div>
         {blog.author}
