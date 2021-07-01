@@ -18,12 +18,13 @@ const Submission = ({ addBlog }) => {
   }
 
   return (
-    <div>
+    <div className="formDiv">
       <h2>Create new</h2>
       <form onSubmit={createBlog}>
         <div>
           title:
           <input
+            id="title"
             type="text"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
@@ -32,6 +33,7 @@ const Submission = ({ addBlog }) => {
         <div>
           author:
           <input
+            id="author"
             type="text"
             value={author}
             onChange={({ target }) => setAuthor(target.value)}
@@ -40,6 +42,7 @@ const Submission = ({ addBlog }) => {
         <div>
           url:
           <input
+            id="url"
             type="text"
             value={url}
             onChange={({ target }) => setUrl(target.value)}
