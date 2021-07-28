@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
-import Blog from '../components/Blog'
+import Blog from './Blog'
 
 test('Blog renders title and author only', () => {
   const blog = {

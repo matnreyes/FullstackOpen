@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const Login = ({ username, password, setUsername, setPassword, submit }) => (
   <div>
-    <form onSubmit={submit}>
+    <form onSubmit={submit} className="login-form">
       <div>
         username:
         <input
@@ -20,7 +20,7 @@ const Login = ({ username, password, setUsername, setPassword, submit }) => (
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" className="login-button">Login</button>
     </form>
   </div>
 )

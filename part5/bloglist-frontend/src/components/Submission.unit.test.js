@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
-import Submission from '../components/Submission'
+import Submission from './Submission'
 
 test('Correct event handler is called', () => {
   const mockHandler = jest.fn()
