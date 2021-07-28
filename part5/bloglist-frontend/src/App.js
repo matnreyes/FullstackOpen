@@ -84,7 +84,7 @@ const App = () => {
     try {
       const response = await blogService.deleteBlog(blogId)
       setBlogs(response)
-      setMessage('Blog succesfully deleted')
+      setMessage('Blog successfully deleted')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
