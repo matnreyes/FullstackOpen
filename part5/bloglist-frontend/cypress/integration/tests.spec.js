@@ -52,7 +52,7 @@ describe('Blog app', function() {
     it('A blog can be liked', function() {
       cy.contains('view').click()
       cy.contains('like').click()
-      cy.contains('101')
+      cy.contains('5')
     })
 
     it('user can delete a blog', function() {
