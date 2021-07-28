@@ -60,5 +60,19 @@ describe('Blog app', function() {
       cy.contains('delete').click()
       cy.contains('Blog successfully deleted')
     })
+
+    it('wrong user cant delete blog', function() {
+      cy.logout()
+      // enter with diff user
+      cy.request('POST', 'http://localhost:3003/api/users', {
+        username: 'hackerman',
+        password: 'hackerpass',
+        name: 'Hacker'
+      })
+      cy.login({ username: 'hackerman', password: 'hackerpass'})
+      cy.visit('http://localhost:3000')
+      cy.contains('view').click()
+      cy.get('#delete-button').should('not.exist')
+    })
   })
 })
