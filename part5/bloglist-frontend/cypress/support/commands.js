@@ -34,19 +34,21 @@ Cypress.Commands.add('login', ({ username, password }) => {
 })
 
 Cypress.Commands.add('defaultPop', () => {
-  cy.request({
-    url: 'http://localhost:3003/api/blogs',
-    method: 'POST',
-    body: {
-      title: 'default title',
-      author: 'default author',
-      url: 'default url',
-      likes: 100
-    },
-    headers: {
-      'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedBloglistUser')).token}`
-    }
-  })
+  for(let i = 0; i < 5; i++) {
+    cy.request({
+      url: 'http://localhost:3003/api/blogs',
+      method: 'POST',
+      body: {
+        title: `blog${i} title`,
+        author: `blog${i} author`,
+        url: `blog${i} url`,
+        likes: i
+      },
+      headers: {
+        'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedBloglistUser')).token}`
+      }
+    })
+  }
 })
 
 Cypress.Commands.add('logout', () => {
