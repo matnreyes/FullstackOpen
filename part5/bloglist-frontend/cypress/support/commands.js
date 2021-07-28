@@ -48,3 +48,8 @@ Cypress.Commands.add('defaultPop', () => {
     }
   })
 })
+
+Cypress.Commands.add('logout', () => {
+  localStorage.removeItem('loggedBloglistUser')
+  localStorage.removeItem('tokenExpiration')
+})
