@@ -12,7 +12,7 @@ const Error = ({ error }) => {
     color: 'red'
   }
   return (
-    <div style={messageStyle}>
+    <div style={messageStyle} className='error'>
       {error}
     </div>
   )

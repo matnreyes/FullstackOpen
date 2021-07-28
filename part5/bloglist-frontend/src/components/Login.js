@@ -7,6 +7,7 @@ const Login = ({ username, password, setUsername, setPassword, submit }) => (
       <div>
         username:
         <input
+          id="username-input"
           type="text"
           value={username}
           onChange={({ target }) => setUsername(target.value)}
@@ -15,6 +16,7 @@ const Login = ({ username, password, setUsername, setPassword, submit }) => (
       <div>
         password:
         <input
+          id="password-input"
           type="password"
           value={password}
           onChange={({ target }) => setPassword(target.value)}
