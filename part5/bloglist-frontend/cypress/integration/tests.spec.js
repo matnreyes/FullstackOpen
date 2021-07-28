@@ -36,13 +36,9 @@ describe('Blog app', function() {
 
   describe('When user logged in', function() {
     beforeEach(function() {
-      cy.request('POST', 'http://localhost:3003/api/login', {
-        username: 'admin', password: 'password'
-      }).then(response => {
-        localStorage.setItem('loggedBloglistUser', JSON.stringify(response.body))
-        window.localStorage.setItem('tokenExpiration', (new Date()).getTime() + (1000 * 60 * 60))
-        cy.visit('http://localhost:3000')
-      })
+      cy.login({ username: 'admin', password: 'password' })
+      cy.defaultPop()
+      cy.visit('http://localhost:3000')
     })
 
     it('A blog can be created', function() {
@@ -51,6 +47,12 @@ describe('Blog app', function() {
       cy.get('#author').type('test author')
       cy.get('#url').type('testurl.com')
       cy.get('.blog-submit').click()
+    })
+
+    it('A blog can be liked', function() {
+      cy.contains('view').click()
+      cy.contains('like').click()
+      cy.contains('101')
     })
   })
 })
