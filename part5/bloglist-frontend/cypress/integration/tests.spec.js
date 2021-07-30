@@ -69,10 +69,30 @@ describe('Blog app', function() {
         password: 'hackerpass',
         name: 'Hacker'
       })
-      cy.login({ username: 'hackerman', password: 'hackerpass'})
+      cy.login({ username: 'hackerman', password: 'hackerpass' })
       cy.visit('http://localhost:3000')
       cy.contains('view').click()
       cy.get('#delete-button').should('not.exist')
+    })
+
+    it('blogs are ordered in descending order', function() {
+      let likes = []
+      var regex = /\d+/g
+      for(let i = 0; i < 5; i++) {
+        // expands blog
+        cy.contains('view').click()
+        // gets ith blog in page
+        cy.get('.blogContainer').eq(i).then($blog => {
+          // finds # of likes w regex, converts to int and saves in likes array
+          likes[i] = parseInt(($blog.text()).match(regex))
+
+          if(i ===  0) {
+            return
+          }
+
+          expect(likes[i]).to.be.lessThan(likes[i - 1])
+        })
+      }
     })
   })
 })
